@@ -12,46 +12,32 @@ import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div>
+    <Router>
+
       <Navbar/>
 
-      <MyRouter route='/'>
-        <Home/>
-      </MyRouter>
+      <Switch>
 
-      <MyRouter route='/about'>
-        <About/>
-      </MyRouter>
+        <Route exact path="/">
+          <Home/>
+        </Route>
 
-      <MyRouter route='/drink/'>
-        <SingleCocktail/>
-      </MyRouter>
+        <Route path="/about">
+          <About/>
+        </Route>
 
-      <MyRouter route='/error'>
-        <Error/>
-      </MyRouter>
-    </div>
+        <Route path="/cocktail/:id">
+          <SingleCocktail/>
+        </Route>
+
+        <Route path="*">
+          <Error/>
+        </Route>
+        
+      </Switch>
+
+    </Router>
   )
-}
-
-function MyRouter({ children, route }) {
-
-  if(location.pathname !== '/' && route === '/')
-    return;
-
-  if(
-      (location.pathname !== route && !route.endsWith('/')) ||
-      !location.pathname.includes(route)
-    )
-    return;
-
-  return (
-    <>
-    
-      {children}
-    
-    </>
-  );
 }
 
 export default App

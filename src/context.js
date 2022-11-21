@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useCallback } from 'react'
 
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 const AppContext = React.createContext()
@@ -7,9 +6,9 @@ const AppContext = React.createContext()
 let lastFetchTime = 0;
 
 const AppProvider = ({ children }) => {
-  const [queryString, setQueryString] = React.useState('');
-  const [drinks, setDrinks] = React.useState([]);
-  const [isFetching, setIsFetching] = React.useState(false);
+  const [queryString, setQueryString] = useState('');
+  const [drinks, setDrinks] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -19,16 +18,17 @@ const AppProvider = ({ children }) => {
       const data = await fetch(url + queryString);
       const json = await data.json();
 
-      setIsFetching(false);
-      
       if(now < lastFetchTime)
         return;
 
       lastFetchTime = now;
       setDrinks(json?.drinks || []);
+      setIsFetching(false);
     }
 
-    fetchData();
+    const timeoutID = setTimeout(fetchData, 500);
+
+    return () => clearTimeout(timeoutID);
   }, [queryString]);
 
   return (

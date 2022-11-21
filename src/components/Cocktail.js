@@ -15,7 +15,7 @@ const Cocktail = ({ name, category, alcoholic, id, image }) => {
 
         <p>{alcoholic}</p>
 
-        <a href={`http://${location.host}/drink/${id}`} className="btn btn-primary">Details</a>
+        <Link to={`/cocktail/${id}`} className="btn btn-primary">Details</Link>
 
       </footer>
 

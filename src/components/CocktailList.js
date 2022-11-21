@@ -22,7 +22,6 @@ const CocktailList = () => {
   if(cocktailElements.length)
     content = <div className="cocktails-center">{cocktailElements}</div>
 
-
   return (
     <section className="section">
       

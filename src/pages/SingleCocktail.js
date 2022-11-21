@@ -2,30 +2,52 @@ import React from 'react'
 import Loading from '../components/Loading'
 import { useParams, Link } from 'react-router-dom'
 import Error from './Error.js';
+
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i='
 
 const SingleCocktail = () => {
   const [drinks, setDrinks] = React.useState([]);
+  const [isError, setIsError] = React.useState(false);
 
-  const path = location.pathname;
+  const { id } = useParams();
   const drink = drinks?.[0];
 
   React.useEffect(() => {
-    fetch(url + path.slice(path.lastIndexOf('/') + 1))
+    fetch(url + id)
       .then(data => data.json())
-      .then(json => setDrinks(json.drinks))
-      .catch(e => console.error(e));
+      .then(json => {
+        if(!json.drinks)
+          setIsError(true);
+        else
+          setDrinks(json.drinks);
+      })
+      .catch(e => {
+        console.error(e);
+        setIsError(true);
+      });
   }, []);
 
-  console.log(drinks, drinks[0])
+  if(isError)
+    return <Error/>;
 
   if(!drinks?.length)
-    return <h1>Loading...</h1>
+    return <Loading/>;
+
+  let ingredients = '';
+  for(let i = 1; i <= 15; i++) {
+    if(!drink[`strIngredient${i}`])
+      break;
+
+    ingredients += drink[`strIngredient${i}`];
+    ingredients += ', ';
+  }
+
+  ingredients = ingredients.slice(0, ingredients.length - 2);
 
   return (
     <main className="section cocktail-section">
 
-      <a href="/" className="btn btn-primary">Back home</a>
+      <Link to="/" className="btn btn-primary">Back home</Link>
 
       <h2 className="section-title">{drink.strDrink}</h2>
       
@@ -40,7 +62,7 @@ const SingleCocktail = () => {
           <p><span className="drink-data">info :</span> {drink.strAlcoholic}</p>
           <p><span className="drink-data">glass :</span> {drink.strGlass}</p>
           <p><span className="drink-data">instructions :</span> {drink.strInstructions}</p>
-          <p><span className="drink-data">ingredients :</span> {drink.strIngredient1}, {drink.strIngredient2}, {drink.strIngredient3}, {drink.strIngredient4}</p>
+          <p><span className="drink-data">ingredients :</span> {ingredients}</p>
 
         </div>
 
