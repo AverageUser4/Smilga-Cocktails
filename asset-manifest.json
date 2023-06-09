@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/smilga-cocktails/static/css/main.274aee27.css",
-    "main.js": "/smilga-cocktails/static/js/main.34be728f.js",
+    "main.js": "/smilga-cocktails/static/js/main.a138a373.js",
     "static/media/logo.svg": "/smilga-cocktails/static/media/logo.f43a2245f2e27c8b1b645f22293ac86d.svg",
     "index.html": "/smilga-cocktails/index.html",
     "main.274aee27.css.map": "/smilga-cocktails/static/css/main.274aee27.css.map",
-    "main.34be728f.js.map": "/smilga-cocktails/static/js/main.34be728f.js.map"
+    "main.a138a373.js.map": "/smilga-cocktails/static/js/main.a138a373.js.map"
   },
   "entrypoints": [
     "static/css/main.274aee27.css",
-    "static/js/main.34be728f.js"
+    "static/js/main.a138a373.js"
   ]
 }
